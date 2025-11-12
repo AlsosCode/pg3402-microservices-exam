@@ -1,3 +1,18 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
 # Maven
 target/
 pom.xml.tag
@@ -10,42 +25,79 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# IDE
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ IDEA
 .idea/
-*.iml
 *.iws
+*.iml
 *.ipr
-.vscode/
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Eclipse
+.apt_generated
 .classpath
+.factorypath
 .project
-.settings/
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
-# OS
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Mac OS
 .DS_Store
+
+# Windows
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# Logs
-*.log
-
-# Spring Boot
-spring-boot-*.log
-
-# Docker
-.docker/
-*.dockerfile
-
-# Environment
+# Environment variables and secrets
 .env
 .env.local
+.env.*.local
+application-local.properties
+application-local.yml
 
-# Unnecessary documentation files (keeping only README.md and REFLECTION.md for submission)
-DEPLOYMENT.md
-DEPLOYMENT-CHECKLIST.md
+# Docker
+*.log
+.dockerignore
 
-# Build scripts (not needed for submission)
-build-and-run.sh
-restart-catalog.sh
-test-apis.sh
+# Node modules (for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Card images (too large for GitHub - document in README that they should be downloaded)
-Scarlet&Violet-Cards/
+# Frontend build
+frontend/dist/
+frontend/build/
+
+# Vercel
+.vercel
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~

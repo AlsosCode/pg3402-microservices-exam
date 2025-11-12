@@ -2,7 +2,7 @@
 
 A modern microservices-based web application for managing your Pokémon Trading Card Game collection with real-time updates, beautiful card imagery, and progress tracking.
 
-**Live Demo**: [Coming Soon - Deployed on Render + Vercel]
+**Live Demo**: [https://pg3402-microservices-exam.vercel.app/]
 
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)
 ![Java](https://img.shields.io/badge/Java-17+-ED8B00?logo=openjdk)
