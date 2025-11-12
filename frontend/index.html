@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon TCG Binder - Scarlet & Violet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">Pokemon TCG Binder</h1>
+                <p class="subtitle">Scarlet & Violet Base Set</p>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-bar">
+            <button class="nav-item active" data-view="catalog">
+                <i class="fa-solid fa-table-cells" style="width: 20px;"></i>
+                <span>Catalog</span>
+            </button>
+            <button class="nav-item" data-view="collection">
+                <i class="fa-solid fa-clipboard-list" style="width: 20px;"></i>
+                <span>My Collection</span>
+            </button>
+            <button class="nav-item" data-view="progress">
+                <i class="fa-solid fa-chart-simple" style="width: 20px;"></i>
+                <span>Progress</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Catalog View -->
+            <div id="catalog-view" class="view active">
+                <div class="toolbar">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass" style="width: 20px;"></i>
+                        <input type="text" id="search-input" placeholder="Search cards...">
+                    </div>
+                    <div class="filter-group">
+                        <select id="rarity-filter" class="filter-select">
+                            <option value="">All Rarities</option>
+                            <option value="COMMON">Common</option>
+                            <option value="UNCOMMON">Uncommon</option>
+                            <option value="RARE">Rare</option>
+                            <option value="HOLO_RARE">Holo Rare</option>
+                            <option value="ULTRA_RARE">Ultra Rare</option>
+                            <option value="SECRET_RARE">Secret Rare</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Cards:</span>
+                        <span id="total-cards" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Showing:</span>
+                        <span id="showing-cards" class="stat-value">0</span>
+                    </div>
+                </div>
+
+                <div id="cards-grid" class="cards-grid">
+                    <!-- Cards will be loaded here -->
+                </div>
+
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading cards...</p>
+                </div>
+            </div>
+
+            <!-- Collection View -->
+            <div id="collection-view" class="view">
+                <div class="collection-header">
+                    <h2>My Collection</h2>
+                    <div class="collection-stats">
+                        <div class="stat-card">
+                            <span class="stat-number" id="unique-owned">0</span>
+                            <span class="stat-text">Unique Cards</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="total-owned">0</span>
+                            <span class="stat-text">Total Cards</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="collection-grid" class="cards-grid">
+                    <!-- Collection cards will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Progress View -->
+            <div id="progress-view" class="view">
+                <div class="progress-header">
+                    <h2>Collection Progress</h2>
+                </div>
+                <div class="progress-cards">
+                    <div class="progress-card">
+                        <h3>Standard Set</h3>
+                        <p class="progress-desc">Cards 1-198</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-standard" style="width: 0%"></div>
+                        </div>
+                        <p class="progress-text"><span id="standard-count">0</span> / 198</p>
+                    </div>
+                    <div class="progress-card">
+                        <h3>Full Set</h3>
+                        <p class="progress-desc">Standard + Secret Rares (1-258)</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-full" style="width: 0%"></div>
+                        </div>
+                        <p class="progress-text"><span id="full-count">0</span> / 258</p>
+                    </div>
+                    <div class="progress-card">
+                        <h3>Complete Set</h3>
+                        <p class="progress-desc">Full Set + Reverse Holos</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-complete" style="width: 0%"></div>
+                        </div>
+                        <p class="progress-text"><span id="complete-count">0</span> / 516</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Card Detail Modal -->
+        <div id="card-modal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close">&times;</button>
+                <div class="modal-body">
+                    <div class="modal-image">
+                        <img id="modal-card-image" src="" alt="Card">
+                    </div>
+                    <div class="modal-info">
+                        <h2 id="modal-card-name"></h2>
+                        <p class="card-number" id="modal-card-number"></p>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Set:</span>
+                                <span id="modal-card-set"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Rarity:</span>
+                                <span id="modal-card-rarity"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Type:</span>
+                                <span id="modal-card-type"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Artist:</span>
+                                <span id="modal-card-artist"></span>
+                            </div>
+                        </div>
+                        <div class="modal-actions">
+                            <button id="add-to-collection" class="btn-primary">
+                                <i class="fa-solid fa-plus"></i>
+                                Add to Collection
+                            </button>
+                            <button id="delete-from-collection" class="btn-danger" style="display: none;">
+                                <i class="fa-solid fa-trash"></i>
+                                Remove from Collection
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

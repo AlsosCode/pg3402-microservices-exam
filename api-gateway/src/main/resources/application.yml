@@ -1,0 +1,89 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  # Redis for rate limiting (optional, can be disabled for MVP)
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  # Security configuration (disabled for MVP - will be enhanced with OIDC later)
+  # security:
+  #   oauth2:
+  #     resourceserver:
+  #       jwt:
+  #         issuer-uri: ${OAUTH2_ISSUER_URI:https://accounts.google.com}
+
+# Gateway configuration
+  cloud:
+    gateway:
+      # Global CORS configuration
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            exposedHeaders:
+              - X-Correlation-ID
+
+      # Routes configuration
+      routes:
+        # Catalog Service routes (with load balancing across multiple instances)
+        - id: catalog-service
+          uri: lb://catalog-service
+          predicates:
+            - Path=/api/catalog/**
+          filters:
+            - StripPrefix=1
+
+        # Collection Service routes
+        - id: collection-service
+          uri: http://collection-service:8082
+          predicates:
+            - Path=/api/collections/**
+          filters:
+            - StripPrefix=1
+
+      # Default filters
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter:
+              replenishRate: 100
+              burstCapacity: 200
+              requestedTokens: 1
+
+# Management endpoints for observability
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        enabled: true
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    no.kristiania.pg3402: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} [correlationId=%X{X-Correlation-ID}] - %msg%n"

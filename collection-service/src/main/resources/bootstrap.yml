@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: collection-service
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:consul}
+      port: ${CONSUL_PORT:8500}
+      config:
+        enabled: true
+        format: JSON
+        prefix: config
+        default-context: application
+        data-key: data
+      discovery:
+        enabled: true
+        health-check-interval: 10s
+        instance-id: ${spring.application.name}:${random.value}

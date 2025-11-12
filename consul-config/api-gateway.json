@@ -1,0 +1,73 @@
+{
+  "service": {
+    "name": "api-gateway",
+    "port": 8080,
+    "check": {
+      "http": "http://api-gateway:8080/actuator/health",
+      "interval": "10s",
+      "timeout": "5s"
+    }
+  },
+  "config": {
+    "spring": {
+      "application": {
+        "name": "api-gateway"
+      },
+      "data": {
+        "redis": {
+          "host": "redis",
+          "port": 6379
+        }
+      },
+      "cloud": {
+        "gateway": {
+          "globalcors": {
+            "cors-configurations": {
+              "[/**]": {
+                "allowedOrigins": "*",
+                "allowedMethods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+                "allowedHeaders": "*",
+                "exposedHeaders": ["X-Correlation-ID"]
+              }
+            }
+          },
+          "routes": [
+            {
+              "id": "catalog-service",
+              "uri": "lb://catalog-service",
+              "predicates": ["Path=/api/catalog/**"],
+              "filters": ["StripPrefix=1"]
+            },
+            {
+              "id": "collection-service",
+              "uri": "http://collection-service:8082",
+              "predicates": ["Path=/api/collections/**"],
+              "filters": ["StripPrefix=1"]
+            }
+          ],
+          "default-filters": [
+            {
+              "name": "RequestRateLimiter",
+              "args": {
+                "redis-rate-limiter": {
+                  "replenishRate": 100,
+                  "burstCapacity": 200,
+                  "requestedTokens": 1
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "management": {
+      "endpoints": {
+        "web": {
+          "exposure": {
+            "include": "health,info,metrics,prometheus"
+          }
+        }
+      }
+    }
+  }
+}

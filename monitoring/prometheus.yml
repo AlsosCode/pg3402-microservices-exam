@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'api-gateway'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['api-gateway:8080']
+
+  - job_name: 'catalog-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['catalog-service:8081']
+
+  - job_name: 'collection-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['collection-service:8082']

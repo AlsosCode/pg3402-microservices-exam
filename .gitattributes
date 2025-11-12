@@ -1,0 +1,25 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Shell scripts should use LF
+*.sh text eol=lf
+
+# Windows scripts should use CRLF
+*.bat text eol=crlf
+
+# Java source files
+*.java text diff=java
+*.xml text
+*.yml text
+*.yaml text
+*.properties text
+
+# Documentation
+*.md text
+*.txt text
+
+# Binary files
+*.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary

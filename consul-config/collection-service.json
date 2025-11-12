@@ -1,0 +1,48 @@
+{
+  "service": {
+    "name": "collection-service",
+    "port": 8082,
+    "check": {
+      "http": "http://collection-service:8082/actuator/health",
+      "interval": "10s",
+      "timeout": "5s"
+    }
+  },
+  "config": {
+    "spring": {
+      "application": {
+        "name": "collection-service"
+      },
+      "datasource": {
+        "url": "jdbc:postgresql://collection-db:5432/collection_db",
+        "username": "postgres",
+        "password": "postgres"
+      },
+      "jpa": {
+        "hibernate": {
+          "ddl-auto": "validate"
+        },
+        "show-sql": false
+      },
+      "flyway": {
+        "enabled": true,
+        "baseline-on-migrate": true
+      },
+      "rabbitmq": {
+        "host": "rabbitmq",
+        "port": 5672,
+        "username": "guest",
+        "password": "guest"
+      }
+    },
+    "management": {
+      "endpoints": {
+        "web": {
+          "exposure": {
+            "include": "health,info,metrics,prometheus"
+          }
+        }
+      }
+    }
+  }
+}

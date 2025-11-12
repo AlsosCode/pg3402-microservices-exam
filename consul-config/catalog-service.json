@@ -1,0 +1,54 @@
+{
+  "service": {
+    "name": "catalog-service",
+    "port": 8081,
+    "check": {
+      "http": "http://catalog-service:8081/actuator/health",
+      "interval": "10s",
+      "timeout": "5s"
+    }
+  },
+  "config": {
+    "spring": {
+      "application": {
+        "name": "catalog-service"
+      },
+      "datasource": {
+        "url": "jdbc:postgresql://catalog-db:5432/catalog_db",
+        "username": "postgres",
+        "password": "postgres"
+      },
+      "jpa": {
+        "hibernate": {
+          "ddl-auto": "validate"
+        },
+        "show-sql": false
+      },
+      "flyway": {
+        "enabled": true,
+        "baseline-on-migrate": true
+      },
+      "rabbitmq": {
+        "host": "rabbitmq",
+        "port": 5672,
+        "username": "guest",
+        "password": "guest"
+      }
+    },
+    "pokemontcg": {
+      "api": {
+        "key": "c83c0281-f3aa-4742-9926-c62b0a8de478",
+        "base-url": "https://api.pokemontcg.io/v2"
+      }
+    },
+    "management": {
+      "endpoints": {
+        "web": {
+          "exposure": {
+            "include": "health,info,metrics,prometheus"
+          }
+        }
+      }
+    }
+  }
+}
