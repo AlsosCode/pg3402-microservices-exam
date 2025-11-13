@@ -6,8 +6,34 @@
     <title>Pokemon TCG Binder - Scarlet & Violet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Demo banner */
+        .demo-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        .demo-banner a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+        <strong>Frontend Demo</strong> - This is a visual demo using localStorage only.
+        For full microservices implementation with RabbitMQ & PostgreSQL, see
+        <a href="https://github.com/AlsosCode/PKMN-microservice-exam" target="_blank">GitHub Repo</a>
+    </div>
+
     <div class="app-container">
         <!-- Header -->
         <header class="header">
@@ -178,6 +204,6 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app-vercel.js"></script>
 </body>
 </html>

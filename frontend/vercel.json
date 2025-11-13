@@ -1,4 +1,14 @@
 {
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index-vercel.html"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/index-vercel.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
