@@ -9,6 +9,37 @@ This guide explains how to build and run the Pokemon TCG Collection application.
 - **Java 17+** (JDK)
 - At least **4GB of available RAM**
 
+## ⚠️ Important: Card Images Setup
+
+**For exam evaluators**: The card images are provided in a separate folder due to their size (not in git repository).
+
+### Setting up images:
+
+1. You should have received a folder named `Scarlet&Violet-Cards` containing 258 `.webp` image files
+2. Place this folder in the **same directory** as the project folder:
+
+```
+Your-Desktop/
+├── PKMN-microservice-exam-main/    ← Project folder
+└── Scarlet&Violet-Cards/            ← Image folder (258 .webp files)
+```
+
+3. Move the image folder into the project:
+
+```bash
+# From the project root directory
+mv ../Scarlet\&Violet-Cards .
+```
+
+4. Verify images are in place:
+
+```bash
+ls Scarlet\&Violet-Cards/*.webp | wc -l
+# Should output: 258
+```
+
+**Without the images**: The application will work perfectly (all backend functionality), but card images will not display in the frontend.
+
 ## Quick Start
 
 ### 1. Build All Services
